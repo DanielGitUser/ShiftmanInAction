@@ -16,8 +16,6 @@ How does Shiftman work? Shiftman works by detecting keyboard input and automatic
 
 In this link you can use Shiftman features on a very small scale thus it is embedded inside a form field.
 
-See it on action demo:
-
 ## WHEN
 
 When should you use Shiftman? Shiftman is useful when you need to write any uppercase, such as when drafting documents that require uppercase or Capitalization formatting, writing titles, writing names, or quickly adjusting text to meet specific requirements. It is ideal for writers, editors, programmers, developers, and anyone looking to enhance their writing efficiency.
