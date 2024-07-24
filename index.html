@@ -11,9 +11,11 @@
 </head>
 <body class="bg-gray-900 flex items-center justify-center h-screen">
     <div x-data="keyPressTracker()" class="w-1/2">
-        <div class="text-white text-center text-4xl mb-6">Shiftman</div>
+        <div class="text-white text-center text-4xl mb-6">Shiftman In Action</div>
         <div class="bg-white rounded shadow-lg p-4">
-            <div class="text-xs mb-4 text-gray-500">Test shiftman and see by yourself if this is usefull on your daily work.<br>To use shiftman <span class="font-bold">keep the key pressed</span> until it makes the shift for you!</div>
+            <div class="text-xs mb-4 text-gray-500">
+                Shiftman in action is the place were you can test the application and see the benefits of working with it
+                <br>To use shiftman <span class="font-bold">keep the key pressed</span> until it makes the shift for you!</div>
         <textarea 
             x-ref="textarea"
             @keydown="startTiming"
@@ -26,6 +28,13 @@
            ><span x-show="uppercaseAchieved">✅</span>
             Create 10 upper case letters using shiftman<span x-show="!uppercaseAchieved">:</span>
             <span x-text="uppercaseCount" x-show="!uppercaseAchieved" class="text-green-500"></span>
+        </p>
+            
+            <p class="mt-2 text-sm font-semibold"
+           :class="{'text-green-500': symbolsAchieved}"
+           ><span x-show="symbolsAchieved">✅</span>
+            Create 4 symbols using shiftman<span x-show="!symbolsAchieved">:</span>
+            <span x-text="symbolsCount" x-show="!symbolsAchieved" class="text-green-500"></span>
         </p>
                      
         <p x-show="showPressedKeyTime"
@@ -48,9 +57,11 @@
             uppercaseCount: 0,
             uppercaseAchieved: false,
             showPressedKeyTime: false,
+            symbolsCount: 0,
+            symbolsAchieved: false,
             
             startTiming(event) {
-                this.countUpperCase();
+                this.countParameters();
                 // Verifica si la tecla presionada está en el rango de a-z
                 if (event.key.length === 1 && event.key.match(/[a-z]/i)) {
                     if (!this.startTime) {
@@ -74,27 +85,46 @@
                 }
             },
             updateText() {
-                const textarea = this.$refs.textarea;
-                const currentValue = textarea.value;
-                // Reemplaza el último carácter por su versión en mayúsculas si es una letra
-                if (this.lastKey.match(/[a-z]/i)) {
-                    textarea.value = currentValue.slice(0, -1) + this.lastKey.toUpperCase();
-                    // Asegúrate de colocar el cursor al final del texto
-                    textarea.selectionStart = textarea.selectionEnd = textarea.value.length;
-                    
-                }
-            },
+    const textarea = this.$refs.textarea;
+    const currentValue = textarea.value;
+    
+    // Reemplaza el último carácter por su versión en mayúsculas si es una letra
+    if (this.lastKey.match(/[a-z]/i)) {
+        textarea.value = currentValue.slice(0, -1) + this.lastKey.toUpperCase();
+        // Asegúrate de colocar el cursor al final del texto
+        textarea.selectionStart = textarea.selectionEnd = textarea.value.length;
+    }
+    
+    // Si el último carácter es un número, reemplázalo con '@'
+    if (this.lastKey.match(/[0-9]/)) {
+        textarea.value = currentValue.slice(0, -1) + '@';
+        // Asegúrate de colocar el cursor al final del texto
+        textarea.selectionStart = textarea.selectionEnd = textarea.value.length;
+    }
+},
             
-             countUpperCase() {
+             countParameters() {
                     const textarea = this.$refs.textarea;
                     const text = textarea.value;
                     this.uppercaseCount = (text.match(/[A-Z]/g) || []).length;
+                    this.symbolsCount = (text.match(/[!@#$%^&*()]/g) || []).length;
+
+                 
                  if(this.uppercaseCount > 9 ){
                     this.uppercaseAchieved = true;
                     }else{
                     this.uppercaseAchieved = false;
                     }
-                }
+                 
+                 if(this.symbolsCount > 3 ){
+                        this.symbolsAchieved = true;
+                        }else{
+                        this.symbolsAchieved = false;
+                    }
+                 
+                },
+            
+ 
         
         }
     }
