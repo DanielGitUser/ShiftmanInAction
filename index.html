@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tecla Presionada en Tiempo Real</title>
+    <!-- Incluye Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Incluye AlpineJS -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
+</head>
+<body class="bg-gray-900 flex items-center justify-center h-screen">
+    <div x-data="keyPressTracker()" class="w-1/2">
+        <div class="text-white text-center text-4xl mb-6">Shiftman</div>
+        <div class="bg-white rounded shadow-lg p-4">
+            <div class="text-xs mb-4 text-gray-500">Test shiftman and see by yourself if this is usefull on your daily work.<br>To use shiftman <span class="font-bold">keep the key pressed</span> until it makes the shift for you!</div>
+        <textarea 
+            x-ref="textarea"
+            @keydown="startTiming"
+            @keyup="stopTiming"
+            class="w-full h-32 text-gray-900 p-2 text-2xl border border-gray-300 rounded"
+        ></textarea>
+        
+        <p class="mt-2 text-sm font-semibold"
+           :class="{'text-green-500': uppercaseAchieved}"
+           ><span x-show="uppercaseAchieved">✅</span>
+            Create 10 upper case letters using shiftman<span x-show="!uppercaseAchieved">:</span>
+            <span x-text="uppercaseCount" x-show="!uppercaseAchieved" class="text-green-500"></span>
+        </p>
+                     
+        <p x-show="showPressedKeyTime"
+           class="mt-2 text-md font-semibold">Key time pressed: 
+            <span x-text="elapsedTime" class="text-blue-500"></span> ms
+        </p>
+
+    </div>
+            <div class="text-white text-right text-xs mt-2">Version 1.0 By Daniel Guevara</div>
+
+        </div>
+
+<script>
+    function keyPressTracker() {
+        return {
+            startTime: null,
+            elapsedTime: 0,
+            intervalId: null,
+            lastKey: '',
+            uppercaseCount: 0,
+            uppercaseAchieved: false,
+            showPressedKeyTime: false,
+            
+            startTiming(event) {
+                this.countUpperCase();
+                // Verifica si la tecla presionada está en el rango de a-z
+                if (event.key.length === 1 && event.key.match(/[a-z]/i)) {
+                    if (!this.startTime) {
+                        this.startTime = new Date().getTime();
+                        this.lastKey = event.key; // Guarda la última tecla presionada
+                        this.intervalId = setInterval(() => {
+                            this.elapsedTime = new Date().getTime() - this.startTime;
+                            if (this.elapsedTime > 200) {
+                                this.updateText();
+                                // Detener el intervalo para evitar actualizar repetidamente
+                                clearInterval(this.intervalId);
+                            }
+                        }, 10); // Actualiza cada 10 ms
+                    }
+                }
+            },
+            stopTiming() {
+                if (this.startTime) {
+                    clearInterval(this.intervalId);
+                    this.startTime = null; // Resetea el tiempo para la próxima tecla
+                }
+            },
+            updateText() {
+                const textarea = this.$refs.textarea;
+                const currentValue = textarea.value;
+                // Reemplaza el último carácter por su versión en mayúsculas si es una letra
+                if (this.lastKey.match(/[a-z]/i)) {
+                    textarea.value = currentValue.slice(0, -1) + this.lastKey.toUpperCase();
+                    // Asegúrate de colocar el cursor al final del texto
+                    textarea.selectionStart = textarea.selectionEnd = textarea.value.length;
+                    
+                }
+            },
+            
+             countUpperCase() {
+                    const textarea = this.$refs.textarea;
+                    const text = textarea.value;
+                    this.uppercaseCount = (text.match(/[A-Z]/g) || []).length;
+                 if(this.uppercaseCount > 9 ){
+                    this.uppercaseAchieved = true;
+                    }else{
+                    this.uppercaseAchieved = false;
+                    }
+                }
+        
+        }
+    }
+</script>
+    
+    
+
+
+</body>
+</html>
