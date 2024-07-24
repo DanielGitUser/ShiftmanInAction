@@ -63,7 +63,7 @@
             startTiming(event) {
                 this.countParameters();
                 // Verifica si la tecla presionada está en el rango de a-z
-                if (event.key.length === 1 && event.key.match(/[a-z]/i)) {
+                if (event.key.length === 1 && event.key.match(/[a-z0-9]/i)) {
                     if (!this.startTime) {
                         this.startTime = new Date().getTime();
                         this.lastKey = event.key; // Guarda la última tecla presionada
@@ -84,9 +84,22 @@
                     this.startTime = null; // Resetea el tiempo para la próxima tecla
                 }
             },
+            
             updateText() {
     const textarea = this.$refs.textarea;
     const currentValue = textarea.value;
+                const numberToSymbol = {
+        '0': ')',
+        '1': '!',
+        '2': '@',
+        '3': '#',
+        '4': '$',
+        '5': '%',
+        '6': '^',
+        '7': '&',
+        '8': '*',
+        '9': '('
+    };
     
     // Reemplaza el último carácter por su versión en mayúsculas si es una letra
     if (this.lastKey.match(/[a-z]/i)) {
@@ -97,7 +110,8 @@
     
     // Si el último carácter es un número, reemplázalo con '@'
     if (this.lastKey.match(/[0-9]/)) {
-        textarea.value = currentValue.slice(0, -1) + '@';
+        const symbol = numberToSymbol[this.lastKey];
+        textarea.value = currentValue.slice(0, -1) + symbol;
         // Asegúrate de colocar el cursor al final del texto
         textarea.selectionStart = textarea.selectionEnd = textarea.value.length;
     }
