@@ -1,4 +1,4 @@
-# ShiftmanInAction
+# Digital Product: Shiftman
 
 ## WHY
 
