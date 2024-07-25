@@ -2,9 +2,9 @@
 
 ## WHY
 
-Why does Shiftman exist? Shiftman was created to simplify and speed up the writing process by automatically converting all keystrokes pressed keys to uppercase and each number to a symbol. This is ideal for users who need to write in uppercase, Capital letters or use symbols frequently, such as when creating content that requires specific formatting or quickly adjusting capitalization in text. By eliminating the need to hold down the Shift key, Shiftman saves time and reduces effort in writing.
+Why does Shiftman v1.0 exist? Shiftman was created to simplify and speed up the writing process by automatically converting all keystrokes pressed keys to uppercase and each number to a symbol. This is ideal for users who need to write in uppercase, Capital letters or use symbols frequently, such as when creating content that requires specific formatting or quickly adjusting capitalization in text. By eliminating the need to hold down the Shift key, Shiftman saves time and reduces effort in writing.
 
-As a software developer, I write over 6,000 characters daily, often in CamelCaseFormat, and frequently type over 3,000 symbols. This repetitive task of pressing SHIFT and then the key IS NOT NEEDED... but no one knows because this way of doing things has been happening forever! The monumental effort required to accomplish this routine made me create Shiftman, this changed my life and I know this will change yours!
+As a software developer, I write over 6,000 characters daily, often in CamelCaseFormat, and frequently type over 2,000 symbols. This repetitive task of pressing SHIFT and then the key IS NOT NEEDED... but no one knows that, because this way of typing on the keyboards has been happening forever! The monumental effort required to accomplish this routine made me create Shiftman, this changed my life and I know this will change yours!
 
 ## WHAT
 

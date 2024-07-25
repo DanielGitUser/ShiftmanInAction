@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js" defer></script>
 </head>
 <body class="bg-gray-900 flex items-center justify-center h-screen">
-    <div x-data="keyPressTracker()" class="w-1/2">
+    <div x-data="keyPressTracker()" class="w-1/2" x-init="$refs.textarea.select()">
         <div class="text-white text-center text-4xl mb-6">Shiftman In Action</div>
         <div class="bg-white rounded shadow-lg p-10">
             <div class="text-lg mb-4 text-gray-500">
@@ -54,6 +54,12 @@
         </div>
 
 <script>
+    
+    function selectTextArea() {
+            var textarea = document.getElementById('miTextarea');
+            textarea.select();
+        }
+    
     function keyPressTracker() {
         return {
             startTime: null,
